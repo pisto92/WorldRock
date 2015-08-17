@@ -42,16 +42,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private void setAndSaveSelectedLocation(LatLng latLng) {
         map.addMarker(new MarkerOptions().position(latLng).title("N.D.").draggable(true));
-        Database db = new Database(getApplicationContext());
-        db.open();
+        DatabaseManager db = new DatabaseManager(getApplicationContext());
         db.insertRock(new Rock("Location to define", latLng));
+        db.close();
     }
 
     private void loadAllRockLocation(GoogleMap map) {
-        Database db = new Database(getApplicationContext());
-        LinkedList<Rock> rocks = DatabaseManager.getAllRockLocation(db);
+        DatabaseManager db = new DatabaseManager(getApplicationContext());
+        LinkedList<Rock> rocks = db.getAllRockLocation();
         while(!rocks.isEmpty()){
             map.addMarker(new MarkerOptions().position(rocks.pollFirst().coordinates).title("N.D."));
         }
+        db.close();
     }
 }
