@@ -32,6 +32,7 @@ public class DatabaseManager {
     {
         ContentValues cv = new ContentValues();
         cv.put(Rock_DB.ROCK_LOCATION, rock.location);
+        cv.put(Rock_DB.ROCK_DESCRIPTION, rock.description);
         cv.put(Rock_DB.ROCK_LAT, rock.coordinates.latitude);
         cv.put(Rock_DB.ROCK_LON, rock.coordinates.longitude);
         mDb.insert(Rock_DB.ROCK_TABLE, null, cv);
@@ -46,6 +47,7 @@ public class DatabaseManager {
         LinkedList<Rock> rocks= new LinkedList<>();
         Cursor cursor = fetchRocks();
         int location_col = cursor.getColumnIndex(Rock_DB.ROCK_LOCATION);
+        int description_col = cursor.getColumnIndex(Rock_DB.ROCK_DESCRIPTION);
         int latitude_col = cursor.getColumnIndex(Rock_DB.ROCK_LAT);
         int longitude_col = cursor.getColumnIndex(Rock_DB.ROCK_LON);
         while (cursor.moveToNext())
@@ -53,6 +55,7 @@ public class DatabaseManager {
         {
             Rock current_rock = new Rock(
                     cursor.getString(location_col),
+                    cursor.getString(description_col),
                     new LatLng(cursor.getFloat(latitude_col), cursor.getFloat(longitude_col))
             );
             rocks.add(current_rock);

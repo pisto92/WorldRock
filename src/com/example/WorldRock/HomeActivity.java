@@ -17,7 +17,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-       //this.deleteDatabase("WorldRock"); //Elimina il db ogni volta che lanci l'app
+       this.deleteDatabase("WorldRock"); //Elimina il db ogni volta che lanci l'app
 
 
         Button btn_go_to_map = (Button) findViewById(R.id.btn_open_map);
